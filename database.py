@@ -1,8 +1,8 @@
 import psycopg2
-from cfg import database_Password
+
 
 conn = psycopg2.connect(database="to_do_bot", user="postgres",
-                        password=database_Password, host="localhost", port="5432")
+                        password='cool1234', host="localhost", port="5432")
 
 cursor = conn.cursor()
 
@@ -25,8 +25,20 @@ def get_tasks():
         cursor.execute('select * from tasks;')
         records = list(cursor.fetchall())
         return records
+
+def get_tasks_boolean(bol):
+    cursor.execute(f'select * from tasks where completed={bol};')
+    conn.commit()
+    records = list(cursor.fetchall())
+    return records
     
+def delete_task(id):
+     cursor.execute(f'delete from tasks where id={id}')
+     conn.commit()
     
+def complete_task(id):
+     cursor.execute(f'update tasks set completed=true where id={id};')
+     conn.commit()
 if __name__ == '__main__':
     # create_table_tasks()
     pass
