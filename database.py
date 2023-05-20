@@ -20,7 +20,7 @@ def insert_into_tasks(msg):
     cursor.execute(f"INSERT INTO tasks (name, date, completed) VALUES ('{name}', '{date}', {complete});")
     conn.commit()
  
-    
+
 def get_tasks():
         cursor.execute('select * from tasks;')
         records = list(cursor.fetchall())
