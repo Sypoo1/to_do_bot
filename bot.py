@@ -10,8 +10,8 @@ from aiogram.types import Message
 
 from database import insert_into_tasks, get_tasks, get_tasks_boolean, insert_into_hide, complete_task, get_by_id
 from logic import which_emoji, sort_by_date, chek_deadline, time_to_complete, time_to_deadline
+from cfg import Bot_Token
 
-Bot_Token = '6009349109:AAGyX1OEA1dEaf1dcRArthyg2HdYwiE5koA'
 
 router = Router()
 
@@ -218,7 +218,6 @@ async def command_dead_handler(message):
 @router.message(Command(commands=['today', 'week', 'month', 'year']))
 async def command_today_handler(message):
     try:
-        
         a = get_tasks_boolean('false')
 
         msg = message.text 
@@ -235,7 +234,6 @@ async def command_today_handler(message):
         if len(a) == 0:
             await message.answer('Таких заданий нет')
         else:
-
             a = sort_by_date(a)
 
             await message.answer('id, name, date, completed')
@@ -246,7 +244,6 @@ async def command_today_handler(message):
                 task = " ".join(task)
                 await message.answer(task)
             
-
     except:
         await message.answer(f'Команда {message.text} не сработала')
       
@@ -263,7 +260,9 @@ async def command_to_dead_handler(message):
             else:
                 await message.answer(f'До задание номер {id} осталось {time}')
     except:
-        await message.answer(f'Команда /to_dead не сработала')         
+        await message.answer(f'Команда /to_dead не сработала')  
+        
+               
 @router.message()
 async def msg_handler(message):
     try:
